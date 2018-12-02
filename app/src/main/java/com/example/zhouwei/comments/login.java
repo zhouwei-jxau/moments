@@ -18,26 +18,19 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
+public class login extends AppCompatActivity {
+    final private String loginSuccess="login success";
 
-public class regist extends AppCompatActivity {
-
-    private String username=null;
+    private String uid=null;
     private String password=null;
-    private String email=null;
-    private String phone=null;
 
     Activity this_activity=this;
 
     private Thread thread=new Thread()
     {
-        public void run()
+        private String login(String uidType,String uid,String password)
         {
-            String spec="http://119.29.60.170/index.aspx?type=regist&username="+
-                    username+"&password="+
-                    password+"&email="+
-                    email+"phone="+
-                    phone;
+            String spec="http://119.29.60.170/index.aspx?type=login&"+uidType+"="+uid+"&password="+password;
 
             try {
                 URL url=new URL(spec);
@@ -57,44 +50,77 @@ public class regist extends AppCompatActivity {
                         stringBuffer.append(t);
                     }
 
-                    if(stringBuffer.toString().equals("regist success"))
-                    {
-                        Looper.prepare();
-                        Toast.makeText(this_activity, "注册成功", Toast.LENGTH_SHORT).show();
-                        Looper.loop();
-                    }
-
-                    else
-                    {
-                        Looper.prepare();
-                        Toast.makeText(this_activity, "注册失败:"+stringBuffer.toString(), Toast.LENGTH_SHORT).show();
-                        Looper.loop();
-                    }
+                    return stringBuffer.toString();
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            return null;
+        }
+
+        private String loginByUserName(String username,String password)
+        {
+            return login("username",username,password);
+        }
+
+        private String loginByEmail(String email,String password)
+        {
+            return login("email",email,password);
+        }
+
+        private String loginByPhone(String phone,String password)
+        {
+            return  login("phone",phone,password);
+        }
+
+        public void run()
+        {
+            boolean flag=false;
+
+            if(loginByUserName(uid,password).equals(loginSuccess))
+            {
+                flag=true;
+            }
+            else if(loginByEmail(uid,password).equals(loginSuccess))
+            {
+                flag=true;
+            }
+            else if(loginByPhone(uid,password).equals(loginSuccess))
+            {
+                flag=true;
+            }
+
+            if(flag)
+            {
+                Looper.prepare();
+                Toast.makeText(this_activity, "登录成功", Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+            else
+            {
+                Looper.prepare();
+                Toast.makeText(this_activity, "登录失败", Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
         }
     };
-    private Thread newThread=null;
+
+    private Thread newThread;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_regist);
+        setContentView(R.layout.activity_login);
 
-        Button regist_button=(Button)findViewById(R.id.button_regist);
-        EditText username_editText=(EditText) findViewById(R.id.editText_username);
+        Button regist_button=(Button)findViewById(R.id.button_login);
+        EditText username_editText=(EditText) findViewById(R.id.editText_uid);
         EditText password_editText=(EditText)findViewById(R.id.editText_password);
-        EditText email_editText=(EditText)findViewById(R.id.editText_email);
-        EditText phone_editText=(EditText)findViewById(R.id.editText_phone);
 
         regist_button.setOnClickListener((View v) ->{
-            username=username_editText.getText().toString();
+            uid=username_editText.getText().toString();
             password=password_editText.getText().toString();
-            email=email_editText.getText().toString();
-            phone=phone_editText.getText().toString();
 
             newThread=new Thread(thread);
             newThread.start();
