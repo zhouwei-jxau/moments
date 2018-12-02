@@ -19,8 +19,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
-
 public class regist extends AppCompatActivity {
 
     private String username=null;
@@ -103,6 +101,23 @@ public class regist extends AppCompatActivity {
             password=password_editText.getText().toString();
             email=email_editText.getText().toString();
             phone=phone_editText.getText().toString();
+
+            if(Verification.isEmpty(this,username,"请输入用户名"))
+                return;
+            if(!Verification.isMinLength(this,username,"用户名长度不能低于2位",2))
+                return;
+            if(Verification.isEmpty(this,password,"请输入密码"))
+                return;
+            if(!Verification.isMinLength(this,password,"密码长度不能小于6位",6))
+                return;
+            if(Verification.isEmpty(this,email,"请输入邮箱"))
+                return;
+            if(Verification.isEmpty(this,phone,"请输入手机号码"))
+                return;;
+            if(!Verification.isMinLength(this,phone,"请输入正确的手机号码",11))
+                return;
+            if(!Verification.isMaxLength(this,phone,"请输入正确的手机号码",12))
+                return;
 
             newThread=new Thread(thread);
             newThread.start();

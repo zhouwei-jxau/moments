@@ -125,7 +125,10 @@ public class login extends AppCompatActivity {
         login_button.setOnClickListener((View v) ->{
             uid=username_editText.getText().toString();
             password=password_editText.getText().toString();
-
+            if(Verification.isEmpty(this,uid,"请输入账号"))
+                return;
+            if(Verification.isEmpty(this,password,"请输入密码"))
+                return;
             newThread=new Thread(thread);
             newThread.start();
         });
