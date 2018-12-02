@@ -1,6 +1,8 @@
 package com.example.zhouwei.comments;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -114,16 +116,25 @@ public class login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button regist_button=(Button)findViewById(R.id.button_login);
+        Button login_button=(Button)findViewById(R.id.button_login);
         EditText username_editText=(EditText) findViewById(R.id.editText_uid);
         EditText password_editText=(EditText)findViewById(R.id.editText_password);
+        Button to_regist_buton=(Button)findViewById(R.id.loginToRegist);
+        to_regist_buton.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 
-        regist_button.setOnClickListener((View v) ->{
+        login_button.setOnClickListener((View v) ->{
             uid=username_editText.getText().toString();
             password=password_editText.getText().toString();
 
             newThread=new Thread(thread);
             newThread.start();
+        });
+
+        to_regist_buton.setOnClickListener(v->{
+
+            Intent intent=new Intent();
+            intent.setClass(this,regist.class);
+            startActivity(intent);
         });
     }
 }

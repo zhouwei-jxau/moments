@@ -46,7 +46,7 @@
         <LinearLayout
             android:id="@+id/login_uid_layout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -95,7 +95,7 @@
         <LinearLayout
             android:id="@+id/login_password_layout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -158,6 +158,21 @@
                 android:gravity="center"
                 android:text="用户登录"
                 android:textColor="#4477ee" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/login_to_regist_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/loginToRegist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="还没有账号？赶快注册一个吧" />
         </LinearLayout>
 
     </LinearLayout>

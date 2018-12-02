@@ -1,6 +1,7 @@
 package com.example.zhouwei.comments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,10 +37,12 @@ public class regist extends AppCompatActivity {
             String spec="http://119.29.60.170/index.aspx?type=regist&username="+
                     username+"&password="+
                     password+"&email="+
-                    email+"phone="+
+                    email+"&phone="+
                     phone;
+            Log.i("链接",spec);
 
             try {
+
                 URL url=new URL(spec);
                 HttpURLConnection conn=(HttpURLConnection)url.openConnection();
                 conn.setRequestProperty("Charaset","utf-8");
@@ -61,6 +64,11 @@ public class regist extends AppCompatActivity {
                     {
                         Looper.prepare();
                         Toast.makeText(this_activity, "注册成功", Toast.LENGTH_SHORT).show();
+
+                        Intent intent=new Intent();
+                        intent.setClass(this_activity,login.class);
+                        startActivity(intent);
+
                         Looper.loop();
                     }
 
