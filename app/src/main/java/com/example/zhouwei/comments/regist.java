@@ -2,6 +2,8 @@ package com.example.zhouwei.comments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -27,6 +30,8 @@ public class regist extends AppCompatActivity {
     private String phone=null;
 
     Activity this_activity=this;
+
+    private ImageView selectHeadpartrait;
 
     private Thread thread=new Thread()
     {
@@ -122,5 +127,27 @@ public class regist extends AppCompatActivity {
             newThread=new Thread(thread);
             newThread.start();
         });
+
+        selectHeadpartrait=(ImageView)findViewById(R.id.selectHeadPartrait);
+
+        selectHeadpartrait.setOnClickListener(v-> {
+            Intent intent=new Intent();
+            intent.setType("image/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            startActivityForResult(intent,1);
+        });
+
+    }
+
+
+    protected  void onActivityResult(int requestCode,int resultCode,Intent data) {
+        if(resultCode==Activity.RESULT_OK)
+        {
+            if(requestCode==1)
+            {
+                Uri uri=data.getData();
+                selectHeadpartrait.setImageURI(uri);
+            }
+        }
     }
 }
