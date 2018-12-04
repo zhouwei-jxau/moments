@@ -139,7 +139,7 @@
                     android:background="@null"
                     android:ems="10"
                     android:hint="请输入密码"
-                    android:inputType="textPersonName"
+                    android:inputType="textPersonName|textPassword"
                     android:textColor="#ffffff"
                     android:textColorHint="#c8ffffff"
                     android:textSize="25dp" />

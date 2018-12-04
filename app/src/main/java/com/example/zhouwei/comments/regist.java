@@ -2,17 +2,17 @@ package com.example.zhouwei.comments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.uploadheadpartraittoserver.UploadPartraitToServer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +23,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class regist extends AppCompatActivity {
-
+    final private int maxSendSize=4096;
+    final private String romoteHost="119.29.60.170";
     private String username=null;
     private String password=null;
     private String email=null;
@@ -33,16 +34,16 @@ public class regist extends AppCompatActivity {
 
     private ImageView selectHeadpartrait;
 
-    private Thread thread=new Thread()
+    private Thread registThread=new Thread()
     {
+
         public void run()
         {
-            String spec="http://119.29.60.170/index.aspx?type=regist&username="+
+            String spec="http://"+romoteHost+"/index.aspx?type=regist&username="+
                     username+"&password="+
                     password+"&email="+
                     email+"&phone="+
                     phone;
-            Log.i("链接",spec);
 
             try {
 
@@ -65,6 +66,9 @@ public class regist extends AppCompatActivity {
 
                     if(stringBuffer.toString().equals("regist success"))
                     {
+                        UploadPartraitToServer uploadPartraitToServer=new UploadPartraitToServer(selectHeadpartrait,username,romoteHost);
+                        uploadPartraitToServer.start();
+
                         Looper.prepare();
                         Toast.makeText(this_activity, "注册成功", Toast.LENGTH_SHORT).show();
 
@@ -109,22 +113,22 @@ public class regist extends AppCompatActivity {
 
             if(Verification.isEmpty(this,username,"请输入用户名"))
                 return;
-            if(!Verification.isMinLength(this,username,"用户名长度不能低于2位",2))
+            if(Verification.isMinLength(this,username,"用户名长度不能低于2位",2))
                 return;
             if(Verification.isEmpty(this,password,"请输入密码"))
                 return;
-            if(!Verification.isMinLength(this,password,"密码长度不能小于6位",6))
+            if(Verification.isMinLength(this,password,"密码长度不能小于6位",6))
                 return;
             if(Verification.isEmpty(this,email,"请输入邮箱"))
                 return;
             if(Verification.isEmpty(this,phone,"请输入手机号码"))
                 return;;
-            if(!Verification.isMinLength(this,phone,"请输入正确的手机号码",11))
+            if(Verification.isMinLength(this,phone,"请输入正确的手机号码",11))
                 return;
-            if(!Verification.isMaxLength(this,phone,"请输入正确的手机号码",12))
+            if(Verification.isMaxLength(this,phone,"请输入正确的手机号码",12))
                 return;
 
-            newThread=new Thread(thread);
+            newThread=new Thread(registThread);
             newThread.start();
         });
 
