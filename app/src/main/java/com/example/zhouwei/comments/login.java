@@ -99,6 +99,12 @@ public class login extends AppCompatActivity {
             {
                 Looper.prepare();
                 Toast.makeText(this_activity, "登录成功", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent();
+                intent.setClass(this_activity,comment.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("uid",uid);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 Looper.loop();
             }
             else

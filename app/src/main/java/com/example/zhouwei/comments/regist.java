@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.uploadheadpartraittoserver.UploadPartraitToServer;
+import com.network.zhouwei.http_network.Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -66,8 +66,8 @@ public class regist extends AppCompatActivity {
 
                     if(stringBuffer.toString().equals("regist success"))
                     {
-                        UploadPartraitToServer uploadPartraitToServer=new UploadPartraitToServer(selectHeadpartrait,username,romoteHost);
-                        uploadPartraitToServer.start();
+                        Server uploadPartraitToServer=new Server();
+                        uploadPartraitToServer.imageFileUpload(selectHeadpartrait,username);
 
                         Looper.prepare();
                         Toast.makeText(this_activity, "注册成功", Toast.LENGTH_SHORT).show();

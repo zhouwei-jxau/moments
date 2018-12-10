@@ -82,7 +82,7 @@
                     android:inputType="textPersonName"
                     android:textColor="#ffffff"
                     android:textColorHint="#c8ffffff"
-                    android:textSize="25dp" />
+                    android:textSize="20dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -131,7 +131,7 @@
                     android:inputType="textPersonName|textPassword"
                     android:textColor="#ffffff"
                     android:textColorHint="#c8ffffff"
-                    android:textSize="25dp" />
+                    android:textSize="20dp" />
             </LinearLayout>
 
             <LinearLayout
